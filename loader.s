@@ -1,4 +1,5 @@
 global loader			;
+extern sum_of_three
 
 MAGIC_NUMBER equ 0x1BADB002	;
 FLAGS 	     equ 0x0		;
@@ -25,9 +26,6 @@ push dword 3
 push dword 2
 push dword 1
 call sum_of_three
-
-loader:				;
-	mov eax, 0xCAFEBABE	;
 
 .loop:
 	jmp .loop		;
