@@ -20,10 +20,6 @@ kernel_stack:
 	resb KERNEL_STACK_SIZE
 
 loader:
-	mov esp, kernel_stack + KERNEL_STACK_SIZE
-	push dword 3
-	push dword 2
-	push dword 1
 	call kmain
 
 .loop:
