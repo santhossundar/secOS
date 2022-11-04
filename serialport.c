@@ -1,4 +1,4 @@
-#include "serial_port.h"
+#include "serialport.h"
 
 void serial_configure_baud_rate(unsigned short com, unsigned short divisor) {
   outb(SERIAL_LINE_COMMAND_PORT(com), SERIAL_LINE_ENABLE_DLAB);
@@ -18,7 +18,6 @@ void serial_configure_modem(unsigned short com) {
   outb(SERIAL_MODEM_COMMAND_PORT(com), 0x03);
 }
 
-
 void serial_configure(unsigned short port, unsigned short baudRate) {
   serial_configure_baud_rate(port, baudRate);
   serial_configure_line(port);
@@ -27,6 +26,20 @@ void serial_configure(unsigned short port, unsigned short baudRate) {
 }
 
 int serial_is_transmit_fifo_empty(unsigned int com){
-        /* 0x20 = 0010 0000 */
         return inb(SERIAL_LINE_STATUS_PORT(com)) & 0x20;
+}
+
+int serial_write(unsigned short com, char *buf, unsigned int len) {
+  unsigned int indexToBuffer = 0;
+  while (indexToBuffer < len) {
+    if (serial_is_transmit_fifo_empty(com)) {
+      serial_write_byte(com, buf[indexToBuffer]);
+      indexToBuffer++;
+    }
+  }
+  return 0;
+}
+
+void serial_write_byte(unsigned short port, char byteData) {
+  outb(port, byteData);
 }

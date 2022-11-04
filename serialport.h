@@ -1,4 +1,5 @@
-define INCLUDE_SERIALPORT_H
+#ifndef INCLUDE_SERIALPORT_H
+#define INCLUDE_SERIALPORT_H
 
 #pragma once
 #include "io.h"
@@ -25,6 +26,8 @@ void serial_configure_modem(unsigned short com);
 
 void serial_configure(unsigned short port, unsigned short baudRate);
 
-int serial_is_transmit_fifo_empty(unsigned short com);
+int serial_write(unsigned short com, char *buf, unsigned int len);
+
+void serial_write_byte(unsigned short port, char byteData);
 
 #endif
