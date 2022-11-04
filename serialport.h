@@ -25,4 +25,6 @@ void serial_configure_modem(unsigned short com);
 
 void serial_configure(unsigned short port, unsigned short baudRate);
 
+int serial_is_transmit_fifo_empty(unsigned short com);
+
 #endif

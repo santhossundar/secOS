@@ -25,3 +25,8 @@ void serial_configure(unsigned short port, unsigned short baudRate) {
   serial_configure_fifo_buffer(port);
   serial_configure_modem(port);
 }
+
+int serial_is_transmit_fifo_empty(unsigned int com){
+        /* 0x20 = 0010 0000 */
+        return inb(SERIAL_LINE_STATUS_PORT(com)) & 0x20;
+}
